@@ -1,0 +1,280 @@
+body {margin:0;padding:0}
+.map:-moz-full-screen {
+	height: 100%;
+}
+.map:-webkit-full-screen {
+	height: 100%;
+}
+.map:-ms-fullscreen {
+	height: 100%;
+}
+.map:fullscreen {
+	height: 100%;
+}
+.ol-popup {
+	position: absolute;
+	background-color: white;
+	/*-webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+	filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));*/
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #cccccc;
+	bottom: 12px;
+	left: -50px;
+	min-width:160px;
+	white-space: nowrap;text-overflow: ellipsis;
+  }
+.ol-popup .ol-popup-title{
+	display:none;
+}
+.ol-popup.vessel > .ol-popup-title{
+	display:block;
+	height:60px;
+	color:white;
+	line-height:60px;
+	
+	padding-left:10px;
+	padding-right:10px;
+	border-top-left-radius: 13px;
+	border-top-right-radius: 13px;
+	background-color: #1a3251; /* For browsers that do not support gradients */
+   
+	/*background-image:url("/QvAjaxZfc/QvsViewClient.aspx?public=only&name=Extensions/QvOSM_PVM/icon/c_box01_top.png");*/
+}
+.ol-popup.vessel > .ol-popup-title > .ol-popup-title-content{
+	font-size:15px;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.ol-popup.vessel {
+	border: 1px solid #293443;
+	background-color:  #102542;
+	border-radius: 5px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	padding:0px;
+  }
+  .ol-popup:after, .ol-popup:before {
+	top: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+  }
+  
+  .ol-popup.vessel:after {
+	border-top-color: #102542;
+	
+  }
+  .ol-popup.vessel:before {
+	border-top-color: #293443;
+	
+  }
+  .ol-popup:after {
+	border-top-color: white;
+	border-width: 10px;
+	left: 48px;
+	margin-left: -10px;
+  }
+  .ol-popup:before {
+	border-top-color: #cccccc;
+	border-width: 11px;
+	left: 48px;
+	margin-left: -11px;
+  }
+  .ol-popup-closer {
+	text-decoration: none;
+	position: absolute;
+	top: 2px;
+	right: 5px;
+  }
+  .ol-popup-closer:after {
+	content: "x";
+  }
+  
+  .ol-popup .popup_content{
+  	color:#037da6;
+	margin:0px;
+  }
+  
+ 
+  .ol-popup.vessel .popup_content{
+  	color:#a0b2c0;
+	padding:15px;
+  }
+  .ol-popup.vessel a{
+	color:#a0b2c0  
+  }
+  .ol-zoom{
+	  /*display:none;*/
+	  
+  }
+  
+  
+  .mapLayerBtn{
+  	position:absolute;z-index:1000;background:#5176A8;border-radius:5px;padding:0 0 0 5px;float:left;left:35px;top:10px;width:20px;height:20px;color:#fff;line-height:19px;font-size:13px;font-weight:bold;cursor:pointer;
+  }
+  .wtLayerBtn{
+	position:absolute;z-index:1000;background:#5176A8;border-radius:5px;padding:0 0 0 5px;float:right;right:5px;top:30px;width:20px;height:20px;color:#fff;line-height:19px;font-size:13px;font-weight:bold;cursor:pointer;  
+  }
+  .mapLayer{
+  	position:absolute;z-index:1000;background:#595959;opacity:0.8;border-radius:5px;padding:5px 0 10px 0;
+  }
+  .mapLayerBtn1{
+  	position: absolute;
+    z-index: 1000;
+    background: #5176A8;
+    border-radius: 5px;
+    padding: 5px 0 0 6px;
+    float: left;
+    left: 40px;
+    top: 11px;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    line-height: 19px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  
+  .wtLayerBtn1{
+	position:absolute;z-index:1000;background:#5176A8;border-radius:5px;padding:0 0 0 5px;float:right;right:5px;top:30px;width:20px;height:20px;color:#fff;line-height:19px;font-size:13px;font-weight:bold;cursor:pointer;  
+  }
+  .mapLayer1{
+  	position:absolute;z-index:1000;background:#595959;opacity:0.8;border-radius:5px;padding:5px 5px 10px 5px;
+  }
+  .zoomLevel {
+	display:none;position:absolute;z-index:1000;border-radius:5px;padding:0 0 0 5px;float:left;left:35px;top:10px;width:100px;height:20px;color:rgb(81,118,168);line-height:19px;font-size:13px;  
+  }
+  .zoomLevel.region {
+	 top:250px;
+  }
+  .zoomLevel.subs {
+	 top:170px;
+  }
+  .zoomLevel.port {
+	 top:115px;
+  }
+  .shipMarker {
+	opacity:0.5;width:25px;height:18px;position:absolute;z-index:99999999;background-size:25px 18px !important;background-repeat:no-repeat;background-clip: content-box;
+  }
+  .airMarker {
+	opacity:0.5;width:24px;height:24px;position:absolute;z-index:99999999;background-size:24px 24px !important;background-repeat:no-repeat;background-clip: content-box;
+  }
+  .form-group img {margin:2px 0 2px 0}
+  .ol-attribution{
+	display:none;
+  }
+  .vessel_name_box{
+	padding : 3px 15px;
+	border-radius : 15px;
+	background-color : #000;
+	z-index:9998;
+	opacity:0.7;
+  }
+  .route_time_box{
+	  padding : 3px 15px;
+	  border-radius : 5px;
+	  background-color : #004aa6;
+	  opacity:0.7;
+  }
+  .alert-red{
+	color:#ff6262;
+	  
+  }
+  .route_time_box:before {
+	content: '';
+	position: absolute;
+	border-right: 25px solid #004aa6;
+	border-top: 13px solid transparent;
+	border-bottom: 0px solid transparent;
+	/*top: 20px;*/
+	left: -25px;
+  }
+  .port-encheck {
+	position: absolute;
+	z-index: 26;
+    top: 380px;
+    left: 7px;
+    width: 64px;
+    height: 73px;
+   
+	cursor:pointer;
+    border: 0px solid rgb(4, 108, 193);
+  }
+  
+  .port-encheck img {
+	border: 0px;
+    border-radius: 7px;
+	
+  }
+  .weather-encheck {
+	position: absolute;
+	z-index: 26;
+    top: 451px;
+    left: 7px;
+    width: 64px;
+    height: 73px;
+   
+	cursor:pointer;
+    border: 0px solid rgb(4, 108, 193);
+  }
+  
+  .weather-encheck img {
+	border: 0px;
+    border-radius: 7px;
+	
+  }
+  .mapLayerBtn1 >.arrow {
+	width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid #FFF;
+    border-right: 0px;
+	transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+  }
+  .mapLayerBtn1.rotate > .arrow {
+	  transform:rotate(-180deg);
+	  -webkit-transform:rotate(-180deg);
+  }
+  
+  #sProgressPopup {
+	position:absolute;
+	display:none;
+	background-color: white;
+	left:38%;
+	top:45%;
+	-webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+	filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #cccccc;
+	
+	font-size: 24px;
+	width:24%;
+	white-space: nowrap;text-overflow: ellipsis;
+  }
+  .sProgressPopup-closer {
+	text-decoration: none;
+	position: absolute;
+	top: 2px;
+	right: 8px;
+  }
+  .sProgressPopup-closer:after {
+	content: "x";
+  }
+  .col-sm-10{
+	padding-left:10px;
+  }
+  .col-sm-10 li:hover{
+	cursor:pointer;
+	color:yellow;
+  }
+

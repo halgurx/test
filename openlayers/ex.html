@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>map packege</title>
+	<meta charset="UTF-8">
+    <link rel="stylesheet"  href="./css/ol.css" type="text/css">
+	<link rel="stylesheet"  href="./css/style.css" type="text/css">
+	<script src="./js/jquery.1.11.min.js"></script>
+	<script src='./js/jquery-ui.min.js'></script>
+    <script src="./js/ol.js"></script>
+    <script src="./ol_function.js"></script>
+  </head>
+  <body>
+    
+	<!--맵 element-->
+	<div id="map" class="map"></div>
+	
+	<!--map controller div-->
+	<div style="position:absolute;float:left;width:100%;top: 0;">
+		<div id="mapLayerBtn1" class="mapLayerBtn1">
+			<div class="arrow"></div>
+		</div>
+		<div id="mapLayer1" class="mapLayer1" style="float:left;left: 65px;top: 10px;width:180px;display:none">
+		  <div class="form-group">
+			
+			<!--<div class="col-sm-10" style="color:#fff;white-space : nowrap;">
+				<input type="checkbox" id="tyDateLabel1"  style="display:inline-block"/> <span style="white-space : nowrap;">Typhoon Date</span>
+			</div>-->
+			<div class="col-sm-10" style="color:#fff">
+				<ul>
+					<li>
+						1부
+					</li>
+					<li>
+						2부
+					</li>
+					<li>
+						3부
+					</li>
+					<li>
+						4부
+					</li>
+					<li>
+						5부
+					</li>
+					<li>
+						6부
+					</li>
+					<li>
+						7부
+					</li>
+					<li>
+						8부
+					</li>
+					<li>
+						9부
+					</li>
+					<li>
+						10부
+					</li>
+					<li>
+						11부
+					</li>
+					<li>
+						12부
+					</li>
+					<li>
+						13부
+					</li>
+				</ul>
+				
+			</div>
+		  </div>
+		</div>
+	</div>				
+					
+	<!--포인트 팝업 html소스-->						
+	<div id="pointPopup" class="ol-popup">
+		<div class="ol-popup-title">
+			<img src="" width="32" height="18"/>
+			<span class="ol-popup-title-content"></span>
+		</div>
+		<a href="#" id="popup-closer" class="ol-popup-closer"></a>
+		<div id="popup-content"></div>
+	</div>
+	<script>
+	    
+		//map 컨트롤러 스타일 제어
+		$("#mapLayerBtn1").on("click", function(){
+			$("#mapLayerBtn1").toggleClass("rotate");
+			$("#mapLayer1").toggle("slide", 500, function(d){
+				
+			});
+		});
+		
+		
+		//동작부
+		//map 레이어를 target element에 추가
+		var map = new ol.Map({
+			layers: [
+			  new ol.layer.Tile({
+				source: new ol.source.OSM()
+			  })
+			],
+			controls: ol.control.defaults().extend([
+							
+				new ol.control.Zoom()
+						
+			]),
+			target: 'map',
+			view: new ol.View({
+			  center: ol.proj.fromLonLat([118, 36.75]),
+			  zoom: 6
+			})
+		});
+		
+		
+		
+		// 경도 위도에따라 격자로 영역을 표시
+		/*var graticule = new ol.Graticule({
+		// the style to use for the lines, optional.
+			strokeStyle: new ol.style.Stroke({
+			  color: 'rgba(255,120,0,0.9)',
+			  width: 2,
+			  lineDash: [0.5, 4]
+			}),
+			showLabels: true
+		});
+		graticule.setMap(map);*/
+		
+		
+		//초기 변수 지정
+		var routeLayer;
+		var bubbleLayer;
+		var iconLayer
+		var LabelOverlayarr=[];
+		var LabelC=false;
+		var popupdata=[
+				"https://www.youtube.com/watch?v=JL78WwJpBZU&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=1",
+				"https://www.youtube.com/watch?v=W5zSXk6l6M4&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=2",
+				"https://www.youtube.com/watch?v=DP-jVjglgC8&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=3",
+				"https://www.youtube.com/watch?v=TszCvlVYrIo&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=4",
+				"https://www.youtube.com/watch?v=eu-UG4jaaIo&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=5",
+				"https://www.youtube.com/watch?v=fJRMJM3ZrVM&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=6",
+				"https://www.youtube.com/watch?v=bzcQKJCFD8o&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=7",
+				"https://www.youtube.com/watch?v=f5lpyixiNJk&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=8",
+				"https://www.youtube.com/watch?v=PlzdbjPrv3M&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=9",
+				"https://www.youtube.com/watch?v=uCBD4o6IanE&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=10",
+				"https://www.youtube.com/watch?v=u3u0sg4wE9U&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=11",
+				"https://www.youtube.com/watch?v=k0qhoHOwshU&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=12",
+				"https://www.youtube.com/watch?v=s_4egzP7PRo&list=PLHMs5eoNrHw9EDWSXocwYBscocvg1zqfw&index=13",
+		]
+		
+		//경로데이터
+		
+		
+		//map에 pointPopup element를 추가 하고 동작 제어 추가	
+		var pointPopup = new ol.Overlay({
+			element: document.getElementById("pointPopup"),
+			autoPan: true,
+			autoPanAnimation: {
+				duration: 250
+			}
+		});
+		
+		map.addOverlay(pointPopup);
+		
+		var pointPopupContent = document.getElementById('popup-content');
+		var pointPopupCloser = document.getElementById('popup-closer');
+		
+		pointPopupCloser.onclick = function() {
+			
+			pointPopup.setPosition(undefined);
+			pointPopupCloser.blur();
+			//select.getFeatures().clear();
+			return false;
+		};
+
+		
+		/* map상의 마우스 커서가 이동할때 특정한 요소위에 올라갈경우 cursor모양을 변경*/
+		map.on('pointermove', function(evt) {
+			var pointerFlag = map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
+				if(feature.get("popup") ){
+					return true;
+				}
+			});
+			
+			map.getTargetElement().style.cursor =  pointerFlag ? 'pointer' : '';
+			
+		});
+
+		
+	
+		//map 요소를 한번 클릭할때 동작
+		
+		map.on("singleclick", function (evt) {
+			//select.getFeatures().clear();
+			
+			var coordinate = evt.coordinate;
+			
+			var info = map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
+				//select.getFeatures().push(feature);
+				
+					
+				
+				
+				return feature.get("popup");
+				
+			});
+			if(info){
+				/*pointPopupContent.innerHTML = '<p class="popup_content">'+info+'</p>';
+				pointPopup.setPosition(coordinate);*/
+				window.open(info);
+			} else {
+				
+				//$("#popup-closer").trigger("click");
+			}						
+		});
+					
+		
+		
+		$(".col-sm-10 li").on("click",function(){
+			
+			window.open(popupdata[$(this).index()]);
+		});
+		
+		//1번째 레이어 묶음 함수
+		function firstfunc(){
+			var routedata=[
+				[130.357944,33.566494],
+				[130.852264,33.851723],
+				[132.181371,34.167417],
+				[133.007751,34.434509],
+				[134.190992,34.748029],
+				[135.794392,34.070855],
+				[135.497553,34.672046],
+				[135.742680,34.872221],
+				[136.404887,35.036906],
+				[136.913574,35.171697],
+				[137.712454,34.874881],
+				[138.366314,34.993073],
+				[139.731074,35.708146],
+				[139.731074,35.708146]
+			];
+			
+			var namedata=[
+				"후쿠오카",
+				"키타큐슈",
+				"이와쿠니",
+				"미하라",
+				"비젠",
+				"타키가와",
+				"오사카",
+				"교토",
+				"키메야마",
+				"나고야",
+				"하마마츠",
+				"시즈오카",
+				"도쿄",
+				""
+			]
+			var routeobj={
+				data:routedata,
+				dataType:"normal",
+				icon:true,
+				iconImage:"./img/point.png",
+				popupdata: popupdata,
+				namedata: namedata
+
+			}
+			
+			routeLayer = map.removeLayer(routeLayer);
+			routeLayer=DDolrouteDraw(routeobj);
+			map.addLayer(routeLayer);
+			
+			var extent = routeLayer.getSource().getExtent();
+			map.getView().fit(extent, map.getSize(),{padding : [50,20,50,20]});
+			
+					
+			
+			
+			
+			
+			
+		}
+				
+		
+		firstfunc();
+    </script>
+  </body>
+</html>
